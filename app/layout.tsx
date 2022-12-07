@@ -6,9 +6,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" style={{
+      height: '100%'
+    }}>
       <head />
-      <body>{children}</body>
+      <body className='overflow-y-hidden bg-gradient-to-br from-gray-900 to-[#030508] text-neutral-400 h-full'>{children}</body>
     </html>
   )
 }

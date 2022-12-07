@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .socialIcon {
+    @apply hover:text-amber-700
+  }
+  .navItem {
+    @apply min-[380px]:p-2 uppercase min-[380px]:tracking-wide sm:tracking-widest hover:text-amber-700 p-1 text-sm min-[380px]:text-base
+  }
+}
+
+
+body > div:first-child{
+  height: 100%;
+}
