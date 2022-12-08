@@ -8,91 +8,57 @@ type Props = {
 export default function HorizontalDraggable({ children }: Props) {
   const draggableDiv = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState({
-    left: 0,
-    x: 0,
-  })
 
-  const mouseDownHandler = function (e: React.MouseEvent<HTMLDivElement>) {
-    if (!draggableDiv.current) return;
-    draggableDiv.current.style.userSelect = 'none';
-    draggableDiv.current.style.cursor = 'grabbing';
-    setIsDragging(true)
-    setPosition({
-      left: draggableDiv.current?.scrollLeft,
-      x: e.clientX,
-    })
-  }
-  const mouseMoveHandler = function (e: React.MouseEvent<HTMLDivElement>) {
-    if (!draggableDiv.current) return
-    if (!isDragging) return
-    const dx = e.clientX - position.x;
-    let sum = 1;
-    if (dx > 0) sum = -1;
-    const scaleAmount = ((Math.abs(dx) * 0.02) / 200) + 1
-    draggableDiv.current.style.transition = `none`;
-    draggableDiv.current.style.transform = `scaleX(${scaleAmount}) translateX(${((draggableDiv.current.clientWidth * (scaleAmount - 1)) / 2) * sum * -1}px)`;
-    if (Math.abs(dx) > 200) {
-      if (currentPage + sum >= Children.count(children)) {
-        draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * (0)
-      } else if (currentPage + sum < 0) {
-        draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * (Children.count(children) - 1)
-      } else {
-        draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * (currentPage + sum)
-      }
-      setIsDragging(false)
-      draggableDiv.current.style.transition = `0.1s`;
-      draggableDiv.current.style.transform = `none`;
-    }
-
-  };
-  const mouseUpHandler = function () {
-    if (!draggableDiv.current) return
-    setIsDragging(false);
-    draggableDiv.current.style.transition = `0.1s`;
-    draggableDiv.current.style.transform = `none`;
-    draggableDiv.current.style.removeProperty('user-select');
-    draggableDiv.current.style.removeProperty('cursor');
-  };
   const scrollHandler = function () {
     if (!draggableDiv.current) return
     const scroll = draggableDiv.current.scrollLeft;
     const part = (draggableDiv.current.scrollWidth / Children.count(children));
     for (let i = 0; i < Children.count(children); i++) {
-      if (scroll > (part * i) - part/2 && scroll < (part * (i + 1)) - part/2) {
+      if (scroll > (part * i) - part / 2 && scroll < (part * (i + 1)) - part / 2) {
         setCurrentPage(i)
         break;
       }
     }
-
   }
 
-
+  const leftHandler = function () {
+    if (!draggableDiv.current) return;
+    const part = (draggableDiv.current.scrollWidth / Children.count(children));
+    if(currentPage - 1 < 0){
+      draggableDiv.current.scrollLeft = part * Children.count(children);
+    }else{
+      draggableDiv.current.scrollLeft = part * (currentPage-1);
+    }
+  }
+  const rightHandler = function () {
+    if (!draggableDiv.current) return;
+    const part = (draggableDiv.current.scrollWidth / Children.count(children));
+    if(currentPage + 1 > (Children.count(children)-1)){
+      draggableDiv.current.scrollLeft = 0;
+    }else{
+      draggableDiv.current.scrollLeft = part * (currentPage+1);
+    }
+  }
   useEffect(() => {
     if (draggableDiv.current) {
-      if(!window.location.hash) {
+      if (!window.location.hash) {
         draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * getMedian(Children.count(children));
-      }else{
+      } else {
         const element = document.querySelector(window.location.hash)
-        if(!element){
+        if (!element) {
           draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * getMedian(Children.count(children));
-        }else{
+        } else {
           element.scrollIntoView();
         }
       }
     }
-    document.addEventListener('mouseup', mouseUpHandler)
-    return () => {
-      document.removeEventListener('mouseup', mouseUpHandler)
-    }
   }, [])
 
   return (
-    <div ref={draggableDiv} className='flex-1 customscroll scroll-smooth flex overflow-y-hidden flex-row overflow-x-scroll snap-x snap-mandatory '
-      onMouseMove={mouseMoveHandler}
-      onMouseDown={mouseDownHandler}
+    <div ref={draggableDiv} className='flex-1 customscroll scroll-smooth flex overflow-y-hidden flex-row overflow-x-scroll snap-x snap-mandatory'
       onScroll={scrollHandler}>
+        <svg onClick={leftHandler} className="hidden md:block w-16 h-16 cursor-pointer absolute my-auto top-0 bottom-0 left-0 z-30 2xl:left-32" clipRule="evenodd" fillRule="evenodd" fill='currentColor' strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m13.789 7.155c.141-.108.3-.157.456-.157.389 0 .755.306.755.749v8.501c0 .445-.367.75-.755.75-.157 0-.316-.05-.457-.159-1.554-1.203-4.199-3.252-5.498-4.258-.184-.142-.29-.36-.29-.592 0-.23.107-.449.291-.591zm-.289 7.563v-5.446l-3.522 2.719z" fillRule="nonzero" /></svg>
+        <svg onClick={rightHandler} className="2xl:right-32 hidden md:block w-16 h-16 cursor-pointer absolute my-auto top-0 bottom-0 right-0 z-30" clipRule="evenodd" fillRule="evenodd" fill='currentColor' strokeLinejoin="round" strokeMiterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m10.211 7.155c-.141-.108-.3-.157-.456-.157-.389 0-.755.306-.755.749v8.501c0 .445.367.75.755.75.157 0 .316-.05.457-.159 1.554-1.203 4.199-3.252 5.498-4.258.184-.142.29-.36.29-.592 0-.23-.107-.449-.291-.591zm.289 7.563v-5.446l3.522 2.719z" fillRule="nonzero" /></svg>
       {children}
     </div>
   )
