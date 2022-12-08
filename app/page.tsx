@@ -1,16 +1,17 @@
 import React from 'react'
+import About from '../components/About'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
-import HorizontaDraggable from '../components/HorizontalDraggable'
+import HorizontalDraggable from '../components/HorizontalDraggable'
 
 type Props = {}
 
 export default function Home({ }: Props) {
   return (
     <div className='h-full overflow-hidden flex flex-col'>
-      <HorizontaDraggable>
-        <section id="about" className='min-w-full flex justify-center items-center snap-center'>
-          <span>About</span>
+      <HorizontalDraggable>
+        <section id="about" className='min-w-full flex justify-center snap-center'>
+          <About />
         </section>
         <section id="experience" className='min-w-full flex justify-center items-center snap-center'>
           <span>Experience</span>
@@ -22,7 +23,7 @@ export default function Home({ }: Props) {
         <section id="skills" className='min-w-full flex justify-center items-center snap-center'>
           <span>Skills</span>
         </section>
-      </HorizontaDraggable>
+      </HorizontalDraggable>
       <Footer />
     </div>
   )

@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function HorizontaDraggable({ children }: Props) {
+export default function HorizontalDraggable({ children }: Props) {
   const draggableDiv = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -89,7 +89,7 @@ export default function HorizontaDraggable({ children }: Props) {
   }, [])
 
   return (
-    <div ref={draggableDiv} className='flex-1 scrollbar-thin scrollbar-thumb-gray-900 scrollbar-track-neutral-500 scroll-smooth flex flex-row overflow-x-scroll snap-x snap-mandatory '
+    <div ref={draggableDiv} className='flex-1 customscroll scroll-smooth flex overflow-y-hidden flex-row overflow-x-scroll snap-x snap-mandatory '
       onMouseMove={mouseMoveHandler}
       onMouseDown={mouseDownHandler}
       onScroll={scrollHandler}>

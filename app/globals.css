@@ -9,6 +9,9 @@
   .navItem {
     @apply min-[380px]:p-2 uppercase min-[380px]:tracking-wide sm:tracking-widest hover:text-amber-700 p-1 text-sm min-[380px]:text-base
   }
+  .customscroll {
+    @apply scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-800
+  }
 }
 
 
