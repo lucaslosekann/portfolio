@@ -7,7 +7,7 @@ type Props = {
 
 export default function HorizontaDraggable({ children }: Props) {
   const draggableDiv = useRef<HTMLDivElement>(null);
-  const [currentPage, setCurrentPage] = useState(getMedian(Children.count(children)));
+  const [currentPage, setCurrentPage] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({
     left: 0,
@@ -59,11 +59,9 @@ export default function HorizontaDraggable({ children }: Props) {
     if (!draggableDiv.current) return
     const scroll = draggableDiv.current.scrollLeft;
     const part = (draggableDiv.current.scrollWidth / Children.count(children));
-    console.log(draggableDiv.current.scrollWidth, Children.count(children), (draggableDiv.current.scrollWidth / Children.count(children)))
     for (let i = 0; i < Children.count(children); i++) {
       if (scroll > (part * i) - part/2 && scroll < (part * (i + 1)) - part/2) {
         setCurrentPage(i)
-        console.log(i)
         break;
       }
     }
@@ -73,7 +71,16 @@ export default function HorizontaDraggable({ children }: Props) {
 
   useEffect(() => {
     if (draggableDiv.current) {
-      draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * (currentPage)
+      if(!window.location.hash) {
+        draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * getMedian(Children.count(children));
+      }else{
+        const element = document.querySelector(window.location.hash)
+        if(!element){
+          draggableDiv.current.scrollLeft = (draggableDiv.current.scrollWidth / Children.count(children)) * getMedian(Children.count(children));
+        }else{
+          element.scrollIntoView();
+        }
+      }
     }
     document.addEventListener('mouseup', mouseUpHandler)
     return () => {
