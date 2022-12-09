@@ -23,6 +23,7 @@ export default function Home({ }: Props) {
         <Hero />
 
         <section id="projects" className='min-w-full flex justify-center snap-center'>
+          {/* @ts-ignore */}
           <Projects />
         </section>
 
