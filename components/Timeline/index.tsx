@@ -16,7 +16,7 @@ export default function Timeline({ data }: Props) {
               <h3 className="w-full mb-1 text-lg font-semibold text-white">{point?.role}</h3>
               <span className="w-full block mb-2 text-sm font-normal leading-none text-gray-500">{point?.company}</span>
               <time className="w-full block mb-2 text-sm font-normal leading-none text-gray-500">
-                From {point?.from.toLocaleString('default', { month: 'long', year: 'numeric' })} to {point?.working ? 'present' : point?.to.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                From {new Date(point?.from)?.toLocaleString('en', { month: 'long', year: 'numeric' })} to {point?.working ? 'Present' : new Date(point?.to)?.toLocaleString('en', { month: 'long', year: 'numeric' })}
               </time>
               <p className="mb-4 text-base font-normal text-gray-400">
                 {point?.description}
