@@ -23,7 +23,7 @@ export default function Skills({ softSkills, techSkills }: Props) {
                     fill
                     src={urlFor(skill?.photo).url()}
                     alt={skill?.name}
-                    className="object-cover h-auto" />
+                    className="object-contain h-auto" />
                 </div>
               ))
             }
