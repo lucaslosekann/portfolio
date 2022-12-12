@@ -18,7 +18,7 @@ export default function Skills({ softSkills, techSkills }: Props) {
           <div className='grid md:grid-cols-4 grid-cols-3 gap-3 md:gap-5 w-full px-1 pt-5'>
             {
               techSkills?.map(skill =>  (
-                <div key={skill._id} className='relative aspect-square bg-gray-900 mb-4 h-full'>
+                <div key={skill._id} className='relative aspect-square mb-4 h-full'>
                   <Image
                     fill
                     src={urlFor(skill?.photo).url()}
