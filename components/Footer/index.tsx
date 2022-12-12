@@ -40,7 +40,7 @@ export default function Footer({ data }: Props) {
         <SocialIcon target="_blank" url={`mailto:${data?.email}`} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
         <SocialIcon target="_blank" url={`https://api.whatsapp.com/send?phone=${data?.phoneNumber}`} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
         {data?.socials.map(url =>
-            <SocialIcon target="_blank" url={url} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
+            <SocialIcon key={url} target="_blank" url={url} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
         )}
       </div>
     </motion.footer>
