@@ -15,7 +15,7 @@ export default function Hero({ }: Props) {
   return (
     <main className='snap-center space-y-8 min-w-full overflow-hidden flex flex-col justify-center text-center h-full'>
       <BackgroundCircles />
-      <img className="relative rounded-full h-32 w-32 mx-auto object-cover" src="https://github.com/lucaslosekann.png" alt="Lucas's Photo" />
+      <img className="relative rounded-full h-32 w-32 mx-auto object-cover" src="https://cdn.sanity.io/images/arbmh255/production/e5b111c59c6d3ddad0a396d2e59e9265d9f1ba22-500x500.jpg" alt="Lucas's Photo" />
       <div className="z-20" style={{
         overflowWrap: 'anywhere'
       }}>

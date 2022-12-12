@@ -1,5 +1,6 @@
 import React from 'react'
 import About from '../components/About'
+import Experience from '../components/Experience'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import HorizontalDraggable from '../components/HorizontalDraggable'
@@ -17,8 +18,8 @@ export default function Home({ }: Props) {
           <About />
         </section>
 
-        <section id="experience" className='min-w-full flex justify-center items-center snap-center'>
-          <span>Experience</span>
+        <section id="experience" className='min-w-full flex justify-center snap-center'>
+          <Experience />
         </section>
 
         <Hero />
