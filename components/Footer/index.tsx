@@ -2,10 +2,13 @@
 import React from 'react'
 import { SocialIcon } from 'react-social-icons';
 import { motion } from 'framer-motion';
+import { HomeInfo } from '../../typings';
 
-type Props = {}
+type Props = {
+  data: HomeInfo
+}
 
-export default function Footer({ }: Props) {
+export default function Footer({ data }: Props) {
   return (
     <motion.footer
       initial={{
@@ -34,10 +37,11 @@ export default function Footer({ }: Props) {
       <div
         className='md:w-1/3 md:flex md:justify-end'
       >
-        <SocialIcon target="_blank" url='mailto:lucas1losekann@gmail.com' bgColor='transparent' fgColor='currentColor' className='socialIcon' />
-        <SocialIcon target="_blank" url='https://api.whatsapp.com/send?phone=5548999416983' bgColor='transparent' fgColor='currentColor' className='socialIcon' />
-        <SocialIcon target="_blank" url='https://linkedin.com/in/lucaslosekann/' bgColor='transparent' fgColor='currentColor' className='socialIcon' />
-        <SocialIcon target="_blank" url='https://github.com/lucaslosekann' bgColor='transparent' fgColor='currentColor' className='socialIcon' />
+        <SocialIcon target="_blank" url={`mailto:${data?.email}`} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
+        <SocialIcon target="_blank" url={`https://api.whatsapp.com/send?phone=${data?.phoneNumber}`} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
+        {data?.socials.map(url =>
+            <SocialIcon target="_blank" url={url} bgColor='transparent' fgColor='currentColor' className='socialIcon' />
+        )}
       </div>
     </motion.footer>
   )

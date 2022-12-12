@@ -1,8 +1,14 @@
+import Image from 'next/image';
 import React from 'react'
+import { urlFor } from '../../sanity';
+import { SoftSkill, TechSkill } from '../../typings';
 
-type Props = {}
+type Props = {
+  softSkills: SoftSkill[],
+  techSkills: TechSkill[]
+}
 
-export default function Skills({ }: Props) {
+export default function Skills({ softSkills, techSkills }: Props) {
   return (
     <div className='max-w-7xl w-full flex flex-col items-center text-center pt-6 px-1 overflow-y-scroll customscroll'>
       <h3 className='uppercase tracking-[10px] text-xl'>SKILLS</h3>
@@ -11,11 +17,13 @@ export default function Skills({ }: Props) {
           <h4 className='text-white uppercase tracking-[6px] text-xl text-left px-3 w-full mt-5 decoration-amber-700 underline underline-offset-[5px]'>TECH SKILLS</h4>
           <div className='grid md:grid-cols-4 grid-cols-3 gap-3 md:gap-5 w-full px-1 pt-5'>
             {
-              Array(17).fill(0).map((_, i) => (
-                <div key={i} className='rounded-full bg-gray-900 mb-4'>
-                  <img
-                    src="https://github.com/lucaslosekann.png"
-                    className="rounded-full object-cover h-auto" />
+              techSkills?.map(skill =>  (
+                <div key={skill._id} className='relative aspect-square bg-gray-900 mb-4 h-full'>
+                  <Image
+                    fill
+                    src={urlFor(skill?.photo).url()}
+                    alt={skill?.name}
+                    className="object-cover h-auto" />
                 </div>
               ))
             }
@@ -26,12 +34,12 @@ export default function Skills({ }: Props) {
           <h4 className='text-white uppercase tracking-[6px] text-xl text-left px-3 w-full mt-5 decoration-amber-700 underline underline-offset-[5px]'>SOFT SKILLS</h4>
           <div className='flex flex-col mt-5'>
             {
-              Array(4).fill(0).map((_, i) => (
-                <div key={i} className='text-left mb-5'>
+              softSkills?.map((skill,i) => (
+                <div key={skill._id} className='text-left mb-5'>
                   <h5 className='items-baseline uppercase tracking-widest text-lg w-full text-neutral-200 font-light mb-2'>
-                    <span className='text-3xl text-neutral-100 font-semibold'>{padNumber(i + 1)}</span> Collaboration</h5>
+                    <span className='text-3xl text-neutral-100 font-semibold'>{padNumber(i + 1)}</span> {skill?.title} </h5>
                   <span className='text-white'>
-                    I am willing to help when someone from the team encounters problems or bugs. I also know how to listen and understand colleagues from other areas, seeking to add value to projects as a whole, not just the part for which I am technically responsible.
+                    {skill?.description}
                   </span>
                   <div className='w-2/3 border bg-white border-white mx-auto mt-2'></div>
                 </div>
