@@ -32,7 +32,7 @@ export default function Modal({ handleClose, children }: Props) {
     <Backdrop onClick={handleClose}>
       <motion.div
       onClick={ (e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-      className="modal relative"
+      className="modal relative z-50"
       variants={dropIn}
       initial="hidden"
       animate="visible"

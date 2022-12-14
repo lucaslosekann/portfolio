@@ -4,6 +4,7 @@ import React from 'react'
 import { Cursor, useTypewriter } from 'react-simple-typewriter'
 import { urlFor } from '../../sanity';
 import { HomeInfo } from '../../typings';
+import { rgbDataURL } from '../../utils';
 import BackgroundCircles from '../BackgroundCircles';
 type Props = {
   data: HomeInfo
@@ -18,7 +19,7 @@ export default function Hero({ data }: Props) {
   return (
     <main className='snap-center space-y-8 min-w-full overflow-hidden flex flex-col justify-center text-center h-full'>
       <BackgroundCircles />
-      <Image width={128} height={128} src={urlFor(data.heroImage).url()} alt="Lucas's Photo" className='mx-auto object-cover rounded-full' />
+      <Image placeholder='blur' blurDataURL={rgbDataURL(70, 70, 70)} width={128} height={128} src={urlFor(data.heroImage).url()} alt="Lucas's Photo" className='mx-auto object-cover rounded-full' />
       <div className="z-20" style={{
         overflowWrap: 'anywhere'
       }}>

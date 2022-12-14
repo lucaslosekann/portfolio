@@ -1,7 +1,12 @@
+"use client";
+import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { urlFor } from '../../sanity'
 import { Project } from '../../typings'
+import { rgbDataURL } from '../../utils';
+import Carousel from '../Carousel';
+import Modal from '../Modal'
 import ProjectTag from '../ProjectTag'
 
 type Props = {
@@ -9,10 +14,11 @@ type Props = {
 }
 
 export default function ProjectCard({ project }: Props) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <div className='w-full bg-gray-900 rounded-lg mb-4 sm:w-[40%] lg:w-[30%]'>
-      <div className='cursor-pointer relative w-full aspect-video'>
-        <Image fill src={urlFor(project?.photos[0]?.photo).url()} alt={project?.photos[0]?.alt} className='object-cover rounded-lg' />
+      <div className='cursor-pointer relative w-full aspect-video' onClick={() => setModalVisible(true)}>
+        <Image placeholder='blur' blurDataURL={rgbDataURL(70, 70, 70)} fill src={urlFor(project?.photos[0]?.photo).url()} alt={project?.photos[0]?.alt} className='object-cover rounded-lg' />
       </div>
       <div className='mt-1 p-3'>
         <div className='relative mb-1'>
@@ -37,6 +43,15 @@ export default function ProjectCard({ project }: Props) {
           </div>
         }
       </div>
+      <AnimatePresence
+        initial={false}
+        mode="wait">
+        {modalVisible &&
+          <Modal handleClose={() => { setModalVisible(false) }}>
+            <Carousel images={project?.photos} />
+          </Modal>
+        }
+      </AnimatePresence>
     </div>
   )
 }
