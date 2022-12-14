@@ -12,6 +12,10 @@
   .customscroll {
     @apply scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-800
   }
+  .modal {
+    @apply m-auto flex flex-col items-center py-0 px-[2em] rounded-xl;
+    width: clamp(50%, 700px, 95%);
+  }
 }
 
 
