@@ -22,7 +22,6 @@ export default function Skills({ softSkills, techSkills }: Props) {
                 <div key={skill._id} className='relative aspect-square mb-4'>
                   <Image
                     fill
-                    placeholder='blur' blurDataURL={rgbDataURL(70, 70, 70)}
                     src={urlFor(skill?.photo).url()}
                     alt={skill?.name}
                     className="object-contain h-auto" />
