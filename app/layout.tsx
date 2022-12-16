@@ -1,3 +1,4 @@
+import { AnalyticsWrapper } from '../components/Analytics'
 import './globals.css'
 
 export default function RootLayout({
@@ -10,7 +11,9 @@ export default function RootLayout({
       height: '100%'
     }}>
       <head />
-      <body className='overflow-y-hidden bg-gradient-to-br from-gray-900 to-[#030508] text-neutral-400 h-full'>{children}</body>
+      <body className='overflow-y-hidden bg-gradient-to-br from-gray-900 to-[#030508] text-neutral-400 h-full'>{children}
+      <AnalyticsWrapper /></body>
+
     </html>
   )
 }
