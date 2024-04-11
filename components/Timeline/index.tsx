@@ -8,7 +8,11 @@ type Props = {
 export default function Timeline({ data }: Props) {
   return (
     <ol className="relative">
-      {data.map((point, index) =>
+      {data.sort((a, b) => {
+        if (a.working) return -1;
+        if (b.working) return 1;
+        return new Date(b.from).getTime() - new Date(a.from).getTime();
+      }).map((point, index) =>
         <li key={point._id} className="mt-0">
           <div className={'flex-row flex w-full relative ' + (index % 2 != 0 ? 'justify-start' : 'justify-end')}>
             <div className={'flex text-left pl-[25px] flex-col items-start w-full sm:w-1/2 '

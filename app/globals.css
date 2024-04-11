@@ -9,9 +9,6 @@
   .navItem {
     @apply min-[380px]:p-2 uppercase min-[380px]:tracking-wide sm:tracking-widest hover:text-amber-700 p-1 text-sm min-[380px]:text-base
   }
-  .customscroll {
-    @apply scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-thumb-gray-800
-  }
   .modalSize{
     width: clamp(50%, 700px, 95%);
   }
@@ -20,7 +17,18 @@
   }
 }
 
-
 body > div:first-child{
   height: 100%;
 }
+
+
+.customscroll::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #1f2937;
+}
+
+
+.customscroll::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+} 
